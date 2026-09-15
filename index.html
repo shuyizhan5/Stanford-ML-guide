@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="面向中国学生的美国量化实习申请与准备指南。">
+    <title>美国量化实习指南</title>
+    <style>
+      :root {
+        --ink: #102a43;
+        --muted: #627d98;
+        --paper: #fffdf8;
+        --line: #d9e2ec;
+        --accent: #0b7285;
+        --accent-dark: #075a67;
+        --warm: #f3efe3;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        line-height: 1.65;
+      }
+
+      a { color: inherit; }
+
+      .shell { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
+
+      header {
+        border-bottom: 1px solid var(--line);
+        padding: 18px 0;
+      }
+
+      .nav { align-items: center; display: flex; justify-content: space-between; gap: 20px; }
+
+      .brand { font-size: 15px; font-weight: 750; letter-spacing: 0; text-decoration: none; }
+
+      .nav-link { color: var(--muted); font-size: 14px; text-decoration: none; }
+      .nav-link:hover { color: var(--accent); }
+
+      .hero {
+        display: grid;
+        gap: 56px;
+        grid-template-columns: minmax(0, 1.25fr) minmax(260px, .75fr);
+        padding: 88px 0 76px;
+      }
+
+      .eyebrow {
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 750;
+        letter-spacing: .08em;
+        margin: 0 0 18px;
+        text-transform: uppercase;
+      }
+
+      h1, h2, h3 { line-height: 1.2; margin: 0; }
+
+      h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 800; }
+
+      .lead {
+        color: var(--muted);
+        font-size: 19px;
+        margin: 26px 0 32px;
+        max-width: 620px;
+      }
+
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+      .button {
+        background: var(--accent);
+        border: 1px solid var(--accent);
+        border-radius: 5px;
+        color: white;
+        display: inline-flex;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 12px 18px;
+        text-decoration: none;
+      }
+
+      .button:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+      .button.secondary { background: transparent; color: var(--accent); }
+      .button.secondary:hover { background: #e6fcf5; }
+
+      .book-card {
+        align-self: center;
+        background: var(--ink);
+        box-shadow: 13px 13px 0 var(--warm);
+        color: #f9fbfc;
+        min-height: 350px;
+        padding: 36px;
+      }
+
+      .book-card .small { color: #b8c8d9; font-size: 13px; margin: 0 0 18px; }
+      .book-card h2 { font-size: 34px; }
+      .book-card .rule { background: #50c6c9; height: 4px; margin: 26px 0; width: 64px; }
+      .book-card .byline { bottom: 0; color: #d9e2ec; font-size: 14px; margin-top: 92px; }
+
+      .section { border-top: 1px solid var(--line); padding: 68px 0; }
+
+      .section-heading { font-size: clamp(28px, 4vw, 42px); margin-bottom: 16px; }
+      .section-copy { color: var(--muted); font-size: 17px; max-width: 680px; }
+
+      .chapter-grid { display: grid; gap: 14px; grid-template-columns: repeat(3, 1fr); margin-top: 34px; }
+
+      .chapter {
+        border: 1px solid var(--line);
+        min-height: 185px;
+        padding: 24px;
+      }
+
+      .chapter-number { color: var(--accent); font-size: 13px; font-weight: 750; }
+      .chapter h3 { font-size: 20px; margin: 26px 0 8px; }
+      .chapter p { color: var(--muted); font-size: 14px; margin: 0; }
+
+      .note {
+        align-items: center;
+        background: var(--warm);
+        display: flex;
+        gap: 28px;
+        justify-content: space-between;
+        margin-top: 38px;
+        padding: 26px 28px;
+      }
+
+      .note p { color: var(--muted); margin: 6px 0 0; }
+      .note h3 { font-size: 19px; }
+
+      footer { color: var(--muted); font-size: 13px; padding: 32px 0 44px; }
+
+      @media (max-width: 720px) {
+        .shell { width: min(100% - 32px, 1080px); }
+        .hero { gap: 38px; grid-template-columns: 1fr; padding: 60px 0; }
+        .book-card { min-height: 270px; }
+        .book-card .byline { margin-top: 48px; }
+        .chapter-grid { grid-template-columns: 1fr; }
+        .note { align-items: flex-start; flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="shell nav">
+        <a class="brand" href="./">美国量化实习指南</a>
+        <a class="nav-link" href="#about">关于本书</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="shell hero">
+        <div>
+          <p class="eyebrow">Free, living guide</p>
+          <h1>美国量化<br>实习指南</h1>
+          <p class="lead">面向希望申请量化研究、量化交易与量化开发实习的中国学生。一份从准备、投递到面试的持续更新手册。</p>
+          <div class="actions">
+            <a class="button" href="book.pdf">在线阅读完整 PDF</a>
+            <a class="button secondary" href="changelog.html">查看更新记录</a>
+          </div>
+        </div>
+        <aside class="book-card" aria-label="书籍封面">
+          <p class="small">2026 EDITION</p>
+          <h2>美国<br>量化实习<br>指南</h2>
+          <div class="rule"></div>
+          <p class="byline">UCLA Data Science<br>Quant Research</p>
+        </aside>
+      </section>
+
+      <section class="section" id="about">
+        <div class="shell">
+          <h2 class="section-heading">这本书讲什么</h2>
+          <p class="section-copy">这不是“保证拿 offer”的教程，也不提供任何公司内部材料。它帮助你理解量化岗位、制定准备节奏、建立研究和项目证据，并更诚实地评估自己的下一步。</p>
+          <div class="chapter-grid">
+            <article class="chapter">
+              <span class="chapter-number">01</span>
+              <h3>岗位与时间线</h3>
+              <p>理解量化研究、交易和开发岗位的区别，以及何时开始准备与投递。</p>
+            </article>
+            <article class="chapter">
+              <span class="chapter-number">02</span>
+              <h3>项目与科研</h3>
+              <p>把课程、实习和公开项目转化为可以在简历和面试中讲清楚的证据。</p>
+            </article>
+            <article class="chapter">
+              <span class="chapter-number">03</span>
+              <h3>笔试与面试</h3>
+              <p>围绕概率、统计、编程和研究讨论建立长期而可复盘的训练系统。</p>
+            </article>
+          </div>
+          <div class="note">
+            <div>
+              <h3>本书会持续更新</h3>
+              <p>请以本页所列版本和更新日期为准。内容仅供学习与职业规划参考。</p>
+            </div>
+            <a class="button secondary" href="book.pdf">打开 PDF</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell">
+      <span>Copyright 2026. All rights reserved.</span>
+      <span> · </span>
+      <span>小红书主页链接将在正式发布时补入。</span>
+    </footer>
+  </body>
+</html>
