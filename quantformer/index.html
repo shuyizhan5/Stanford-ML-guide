@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="QuantFormer：Attention 在量化交易中的应用学习笔记。">
-  <title>QuantFormer｜Attention × Quant Trading</title>
+  <meta name="description" content="QuantFormer: a beginner-friendly walkthrough of Attention for quantitative trading.">
+  <title>QuantFormer | Attention × Quant Trading</title>
   <style>
     :root { --ink:#102a43; --muted:#627d98; --paper:#fffdf8; --line:#d9e2ec; --accent:#0b7285; --warm:#f3efe3; }
     * { box-sizing:border-box; }
-    body { margin:0; background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; line-height:1.72; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; line-height:1.72; }
     .shell { width:min(900px, calc(100% - 36px)); margin:0 auto; }
     header { border-bottom:1px solid var(--line); padding:18px 0; }
     a { color:var(--accent); }
@@ -17,7 +17,7 @@
     .hero { padding:72px 0 48px; }
     .eyebrow { color:var(--accent); font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
     h1 { font-size:clamp(38px, 7vw, 68px); line-height:1.08; margin:12px 0 20px; }
-    .lead { color:var(--muted); font-size:19px; max-width:700px; }
+    .lead { color:var(--muted); font-size:19px; max-width:720px; }
     .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
     .button { display:inline-block; text-decoration:none; font-weight:750; padding:11px 16px; border:1px solid var(--accent); border-radius:5px; background:var(--accent); color:#fff; }
     .button.secondary { background:transparent; color:var(--accent); }
@@ -25,11 +25,12 @@
     h2 { font-size:28px; margin:0 0 12px; }
     p { margin:10px 0; }
     .flow { background:var(--warm); padding:22px; overflow:auto; white-space:pre; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
-    .formula { background:#fff; border:1px solid var(--line); padding:18px; overflow:auto; font-family:Georgia,serif; }
+    .formula { background:#fff; border:1px solid var(--line); padding:18px; overflow:auto; font-family:Georgia,serif; font-size:18px; }
     .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:20px; }
     .card { border:1px solid var(--line); padding:18px; }
     .card h3 { margin:0 0 8px; font-size:18px; }
     .card p { color:var(--muted); font-size:14px; }
+    .takeaway { background:var(--warm); padding:22px; margin-top:18px; }
     footer { color:var(--muted); font-size:13px; padding:32px 0 44px; }
     @media (max-width:720px){ .grid{grid-template-columns:1fr;} .hero{padding-top:48px;} }
   </style>
@@ -45,47 +46,60 @@
   <div class="shell hero">
     <div class="eyebrow">Project Walkthrough</div>
     <h1>QuantFormer<br>Attention × Quant Trading</h1>
-    <p class="lead">把 Transformer / Attention 的核心机制放进量化时间序列里理解：从历史序列、QKV、Attention，到预测分数、横截面排序和回测。</p>
+    <p class="lead">A beginner-friendly walkthrough of how Transformer attention can be used in quantitative finance, from historical market sequences and Q/K/V to prediction scores, cross-sectional ranking, and portfolio construction.</p>
     <div class="actions">
-      <a class="button" href="README.md">阅读完整学习笔记</a>
-      <a class="button secondary" href="https://github.com/zhangmordred/QuantFormer">原始 QuantFormer 项目</a>
+      <a class="button" href="README.md">Read the Study Notes</a>
+      <a class="button secondary" href="https://github.com/zhangmordred/QuantFormer">Original QuantFormer Repository</a>
     </div>
   </div>
 
   <section>
     <div class="shell">
-      <h2>整体流程</h2>
-      <div class="flow">历史股票序列
-    ↓
+      <h2>What QuantFormer Does</h2>
+      <p>At a high level, the model takes historical stock-market sequences, passes them through a Transformer, produces prediction scores, ranks stocks cross-sectionally, and then uses those rankings to form a portfolio.</p>
+      <div class="flow">Historical stock sequences
+        ↓
 Transformer / Attention
-    ↓
-预测分数
-    ↓
-横截面排序
-    ↓
-Top stocks
-    ↓
+        ↓
+Prediction scores
+        ↓
+Cross-sectional ranking
+        ↓
+Top-ranked stocks
+        ↓
 Portfolio / Backtest</div>
     </div>
   </section>
 
   <section>
     <div class="shell">
-      <h2>Attention 核心公式</h2>
+      <h2>The Core Attention Equation</h2>
       <div class="formula">Attention(Q, K, V) = softmax(QKᵀ / √dₖ) V</div>
       <div class="grid">
-        <div class="card"><h3>Query</h3><p>当前时刻正在寻找什么信息。</p></div>
-        <div class="card"><h3>Key</h3><p>每个历史时刻“有什么信息”。</p></div>
-        <div class="card"><h3>Value</h3><p>真正被按权重聚合并传递的内容。</p></div>
+        <div class="card"><h3>Query</h3><p>What information is the current position looking for?</p></div>
+        <div class="card"><h3>Key</h3><p>What information does each historical position advertise?</p></div>
+        <div class="card"><h3>Value</h3><p>What information is actually passed forward when a position receives attention?</p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="shell">
-      <h2>量化里应该怎么看</h2>
-      <p>Attention 可以被理解成一种“动态信息选择机制”：模型会学习在当前预测时刻，哪些历史位置、哪些市场状态或哪些特征组合更值得关注。</p>
-      <p>真正做研究时，更重要的是继续检查 target 定义、数据切分、交易成本、look-ahead bias、数据泄漏与 out-of-sample 稳定性，而不是只看网络结构。</p>
+      <h2>How to Think About Attention in Quant</h2>
+      <p>In a financial time series, attention can be viewed as a dynamic information-selection mechanism. Instead of treating every historical timestep equally, the model can learn which past market states are more relevant to the current prediction.</p>
+      <p>For example, the model may assign more importance to recent volatility spikes, unusual turnover, regime shifts, or older periods that resemble the current market state.</p>
+      <div class="takeaway"><strong>Intuition:</strong> attention asks, “Which parts of the historical sequence matter most for the prediction I am making now?”</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shell">
+      <h2>What to Check in a Real Quant Study</h2>
+      <div class="grid">
+        <div class="card"><h3>Target</h3><p>What exactly is the model predicting: return, ranking score, volatility, or something else?</p></div>
+        <div class="card"><h3>Data Leakage</h3><p>Make sure no future information enters features, labels, normalization, or portfolio construction.</p></div>
+        <div class="card"><h3>Out-of-Sample</h3><p>Evaluate the strategy on unseen periods with realistic transaction costs and walk-forward testing.</p></div>
+      </div>
     </div>
   </section>
 </main>
